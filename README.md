@@ -1,2 +1,2 @@
 # saas-next-auth
-Boilerplate for SaaS with Nextjs and Next-Auth
+SaaS Boilerplate with Nextjs and Next-Auth
