@@ -1,3 +1,6 @@
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@/lib/authOptions"
+import { redirect } from "next/navigation"
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   Breadcrumb,
@@ -14,7 +17,13 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 
-export default function Page() {
+export default async function Page() {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    redirect("/login")
+    return null
+  }
+  
   return (
     <SidebarProvider>
       <AppSidebar />

@@ -36,7 +36,7 @@ const data = {
   },
   navMain: [
     {
-      title: "Playground",
+      title: "Projetos",
       url: "#",
       icon: SquareTerminal,
       isActive: true,
@@ -56,7 +56,7 @@ const data = {
       ],
     },
     {
-      title: "Models",
+      title: "Governança",
       url: "#",
       icon: Bot,
       items: [
@@ -75,7 +75,7 @@ const data = {
       ],
     },
     {
-      title: "Documentation",
+      title: "Contratos",
       url: "#",
       icon: BookOpen,
       items: [
@@ -98,7 +98,7 @@ const data = {
       ],
     },
     {
-      title: "Settings",
+      title: "Quadros",
       url: "#",
       icon: Settings2,
       items: [
@@ -123,7 +123,7 @@ const data = {
   ],
   navSecondary: [
     {
-      title: "Support",
+      title: "Suporte",
       url: "#",
       icon: LifeBuoy,
     },

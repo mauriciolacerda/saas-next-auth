@@ -74,7 +74,7 @@ export function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <Button type="submit" className="w-full bg-black text-white">
+          <Button type="submit" className="w-full bg-violet-700 dark:bg-white text-white">
             Login
           </Button>
           <Button variant="outline" className="w-full">
