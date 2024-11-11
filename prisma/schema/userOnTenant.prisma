@@ -1,0 +1,8 @@
+model UserOnTenant {
+  userId   Int
+  tenantId Int
+  user     User   @relation(fields: [userId], references: [id])
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  @@id([userId, tenantId])
+}

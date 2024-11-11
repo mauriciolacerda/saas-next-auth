@@ -1,91 +1,87 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Lock, Mail } from "lucide-react";
+import { Lock, Mail, User } from "lucide-react";
 
-export function LoginForm() {
+export function RegisterForm() {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
+    await fetch("/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fullName, email, password }),
     });
-
-    if (result?.error) {
-      // Trate o erro de autenticação aqui
-      console.error(result.error);
-    } else {
-      // Redirecione ou faça algo após o login bem-sucedido
-      router.push("/");
-      console.log("Login bem-sucedido");
-    }
-  };
+    router.push("/login");
+  }
 
   return (
     <Card className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg z-10">
       <CardHeader>
         <CardTitle className="text-2xl font-semibold text-center text-gray-800">
-          Bem-vindo de volta
+          Você pode criar uma conta em segundos!
         </CardTitle>
-        <CardDescription className="text-center text-gray-500 mb-6">
-          Insira seu email abaixo para fazer login na sua conta
-        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email">E-mail</Label>
+            <Label htmlFor="fullName">Nome completo</Label>
+            <div className="relative flex items-center">
+              <span className="absolute left-3 text-gray-500">
+                <User size={16} />
+              </span>
+              <Input
+                id="fullName"
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="pl-10"
+                required
+              />
+            </div>
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="email">E-mail profissional</Label>
             <div className="relative flex items-center">
               <span className="absolute left-3 text-gray-500">
                 <Mail size={16} />
               </span>
-            <Input
-              id="email"
-              type="email"
-              required
-              value={email}
-              className="pl-10"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+              <Input
+                id="email"
+                type="email"
+                required
+                value={email}
+                className="pl-10"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
           </div>
           <div className="grid gap-2">
             <div className="flex items-center">
-              <Label htmlFor="password">Senha</Label>
-              <Link href="/forgot" className="ml-auto inline-block text-sm underline">
-                Esqueceu sua senha?
-              </Link>
+              <Label htmlFor="password">Escolha a senha</Label>
             </div>
             <div className="relative flex items-center">
               <span className="absolute left-3 text-gray-500">
                 <Lock size={16} />
               </span>
-            <Input
-              id="password"
-              type="password"
-              required
-              value={password}
-              className="pl-10"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+              <Input
+                id="password"
+                type="password"
+                required
+                value={password}
+                className="pl-10"
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
           </div>
           <Button
@@ -100,13 +96,13 @@ export function LoginForm() {
             <hr className="flex-grow border-gray-300" />
           </div>
           <Button variant="outline" className="w-full">
-            Continuar com Google
+            Cadastrar com Google
           </Button>
         </form>
         <div className="mt-4 text-center text-sm">
-          Não tem uma conta?{" "}
-          <Link href="/register" className="underline">
-            Cadastre-se
+          Já tem uma conta?{" "}
+          <Link href="/login" className="underline">
+            Entrar
           </Link>
         </div>
       </CardContent>

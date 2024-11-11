@@ -1,0 +1,11 @@
+model Tenant {
+  id          Int      @id @default(autoincrement())
+  name        String?
+  slug        String   @unique
+  description String
+  ownerId     Int
+  owner       User     @relation("OwnerRelation", fields: [ownerId], references: [id])
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  users       UserOnTenant[]
+}

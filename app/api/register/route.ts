@@ -5,12 +5,13 @@ import { hash } from 'bcryptjs';
 const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
-  const { email, password } = await request.json();
+  const { email, password, fullName: name } = await request.json();
 
   const hashedPassword = await hash(password, 12);
 
   await prisma.user.create({
     data: {
+      name,
       email,
       password: hashedPassword,
     },
