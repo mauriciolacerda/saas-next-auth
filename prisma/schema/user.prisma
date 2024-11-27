@@ -1,10 +1,21 @@
 model User {
-  id           Int            @id @default(autoincrement())
-  name         String?
-  email        String         @unique
-  password     String
-  created_at   DateTime       @default(now())
-  updated_at   DateTime       @updatedAt
-  ownedTenants Tenant[]       @relation("OwnerRelation")
-  tenants      UserOnTenant[]
+  id                      String            @id @default(cuid())
+  name                    String?
+  email                   String            @unique
+  password                String?
+  image                   String?
+  company                 String?
+  jobTitle                String?
+  emailVerified           Boolean           @default(false)
+  verificationToken       String?
+  verificationTokenExpiry DateTime?
+  resetToken              String?
+  resetTokenExpiry        DateTime?
+  created_at              DateTime          @default(now())
+  updated_at              DateTime          @updatedAt
+  accounts                Account[]
+  sessions                Session[]
+  ownedTenants            Tenant[]          @relation("OwnerRelation")
+  tenants                 UserOnTenant[]
+  workspaces              UserOnWorkspace[]
 }

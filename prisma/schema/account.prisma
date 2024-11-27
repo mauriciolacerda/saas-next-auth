@@ -1,0 +1,13 @@
+model Account {
+  id                 String   @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  access_token       String?
+  refresh_token      String?
+  expires_at         Int?
+  user               User     @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerAccountId], name: "provider_providerAccountId")
+}

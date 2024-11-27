@@ -1,14 +1,9 @@
-import { LoginForm } from "@/components/login-form"
-import { authOptions } from "@/lib/authOptions"
-import { getServerSession } from "next-auth"
-import { redirect } from "next/navigation"
+import { getProviders } from "next-auth/react";
+import { LoginForm } from "@/app/(auth)/components/LoginForm"
 
 export default async function Page() {
-  const session = await getServerSession(authOptions)
-  if (session) {
-    redirect("/")
-  }
+  const providers = await getProviders();
   return (
-      <LoginForm />
+      <LoginForm providers={providers || {}}/>
   )
 }

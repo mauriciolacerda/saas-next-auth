@@ -1,0 +1,13 @@
+model Workspace {
+  id          String            @id @default(cuid())
+  name        String
+  slug        String            @unique
+  description String?
+  icon        String?
+  tenantId    String
+  created_at  DateTime          @default(now())
+  updated_at  DateTime          @updatedAt
+  tenant      Tenant            @relation(fields: [tenantId], references: [id])
+  users       UserOnWorkspace[]
+
+}

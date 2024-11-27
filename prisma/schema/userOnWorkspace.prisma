@@ -1,0 +1,7 @@
+model UserOnWorkspace {
+  userId      String
+  workspaceId String
+  user        User        @relation(fields: [userId], references: [id])
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id])
+  @@id([userId, workspaceId])
+}

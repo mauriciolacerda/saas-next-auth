@@ -1,11 +1,12 @@
 model Tenant {
-  id          Int      @id @default(autoincrement())
+  id          String         @id @default(cuid())
   name        String?
-  slug        String   @unique
+  slug        String         @unique
   description String
-  ownerId     Int
-  owner       User     @relation("OwnerRelation", fields: [ownerId], references: [id])
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  ownerId     String
+  owner       User           @relation("OwnerRelation", fields: [ownerId], references: [id])
+  created_at  DateTime       @default(now())
+  updated_at  DateTime       @updatedAt
   users       UserOnTenant[]
+  workspaces  Workspace[]
 }

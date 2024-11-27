@@ -1,23 +1,22 @@
+import { getServerSession } from "next-auth";
 import "../globals.css";
-import { Providers } from "../providers";
+import { authOptions } from "@/lib/authOptions";
+import { redirect } from "next/navigation";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession(authOptions);
+
+  if (session) {
+    redirect("/");
+    return null;
+  }
   return (
-    <html lang="pt-BR">
-      <body>
-        <div className="relative flex min-h-screen items-center justify-center bg-gray-100">
-          {/* Background Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-blue-900 opacity-90"></div>
-          {/* Dotted Overlay */}
-          <div className="absolute inset-0 bg-dotted-pattern opacity-10 mix-blend-overlay"></div>
-          {/* Content */}
-            <Providers>{children}</Providers>
+        <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-4">
+          {children}
         </div>
-      </body>
-    </html>
   );
 }
